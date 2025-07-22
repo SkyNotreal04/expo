@@ -1,4 +1,106 @@
----
+import React, { useState } from "react";
+
+// Beispiel-Daten: Du kannst die Liste später beliebig erweitern!
+const cheats = [
+  {
+    cheat: "motherlode",
+    description: "Fügt dem Haushalt 50.000 Simoleons hinzu.",
+    category: "Geld",
+  },
+  {
+    cheat: "kaching",
+    description: "Fügt dem Haushalt 1.000 Simoleons hinzu.",
+    category: "Geld",
+  },
+  {
+    cheat: "rosebud",
+    description: "Fügt dem Haushalt 1.000 Simoleons hinzu.",
+    category: "Geld",
+  },
+  {
+    cheat: "testingcheats true",
+    description: "Aktiviert erweiterte Cheats und Debug-Optionen.",
+    category: "Debug",
+  },
+  {
+    cheat: "bb.moveobjects",
+    description: "Ermöglicht das freie Platzieren von Objekten.",
+    category: "Bauen",
+  },
+  {
+    cheat: "bb.showhiddenobjects",
+    description: "Schaltet versteckte Objekte im Baumodus frei.",
+    category: "Bauen",
+  },
+  {
+    cheat: "freerealestate on",
+    description: "Alle Grundstücke im Nachbarschafts-Übersicht sind kostenlos.",
+    category: "Grundstücke",
+  },
+  {
+    cheat: "resetsim [Vorname] [Nachname]",
+    description: "Setzt einen Sim zurück, falls er festhängt.",
+    category: "Sim-Management",
+  },
+  {
+    cheat: "aspirations.complete_current_milestone",
+    description: "Erfüllt das aktuelle Bestreben deines Sims.",
+    category: "Bestreben",
+  },
+  {
+    cheat: "cas.fulleditmode",
+    description: "Aktiviert vollen Bearbeitungsmodus im CAS (Create a Sim).",
+    category: "CAS",
+  },
+];
+
+export default function App() {
+  const [search, setSearch] = useState("");
+
+  const filteredCheats = cheats.filter(
+    (c) =>
+      c.cheat.toLowerCase().includes(search.toLowerCase()) ||
+      c.description.toLowerCase().includes(search.toLowerCase()) ||
+      c.category.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="min-h-screen bg-green-50 flex flex-col items-center p-4">
+      <h1 className="text-4xl font-bold text-green-600 mb-6">
+        Sims 4 Cheats Übersicht
+      </h1>
+      <input
+        type="text"
+        placeholder="Cheat oder Wirkung suchen..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="mb-6 p-2 rounded-lg border border-green-300 w-full max-w-lg"
+      />
+      <div className="grid gap-4 w-full max-w-2xl">
+        {filteredCheats.length === 0 ? (
+          <div className="text-gray-400 text-center">
+            Kein Cheat gefunden.
+          </div>
+        ) : (
+          filteredCheats.map((c, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-2xl shadow p-4 flex flex-col"
+            >
+              <div className="font-mono text-lg text-green-800 mb-2">
+                {c.cheat}
+              </div>
+              <div className="text-gray-700">{c.description}</div>
+              <div className="mt-2 text-xs text-green-400 italic">
+                Kategorie: {c.category}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}---
 title: Configure a development build in cloud
 sidebar_title: Configure development build
 description: Learn how to configure a development build for a project using EAS Build.
